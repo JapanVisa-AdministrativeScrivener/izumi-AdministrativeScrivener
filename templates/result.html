@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>判定結果</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .result-card {
+            background-color: #e8f5e9;
+        }
+        .btn-primary {
+            border-radius: 8px;
+            padding: 10px 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-success text-white text-center py-3">
+                        <h2>判定結果</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if recommended_status %}
+                        <div class="alert alert-success">
+                            <h4>おすすめの在留資格</h4>
+                            <ul>
+                                {% for status in recommended_status %}
+                                <li>{{ status }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">
+                            <p>申し訳ありませんが、現在の条件では該当する在留資格が見つかりませんでした。</p>
+                            <p>以下の情報を確認してください：</p>
+                            <ul>
+                                <li>国籍: {{ customer_info.国籍 }}</li>
+                                <li>年齢: {{ customer_info.年齢 }}歳</li>
+                                <li>学歴: {{ customer_info.学歴 }}</li>
+                                <li>職歴: {{ customer_info.職歴 }}年</li>
+                                <li>専門性: {% if customer_info.専門性 %}あり{% else %}なし{% endif %}</li>
+                                <li>資本金: {{ customer_info.資本金 }}円</li>
+                                <li>従業員数: {{ customer_info.従業員数 }}人</li>
+                                <li>在留年数: {{ customer_info.在留年数 }}年</li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <div class="text-center mt-4">
+                            <a href="/" class="btn btn-primary">もう一度判定する</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
